@@ -3,17 +3,10 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Client;
-use GuzzleHttp\Promise;
 
 class ShowOrderHistory extends Command
 {
-	/**
-     * @var string
-     */
-    protected $client;
-	
+
     /**
      * The name and signature of the console command.
      *
@@ -27,7 +20,7 @@ class ShowOrderHistory extends Command
      * @var string
      */
     protected $description = 'Display Order History';
-
+	
     /**
      * Create a new command instance.
      *
@@ -36,11 +29,9 @@ class ShowOrderHistory extends Command
     public function __construct()
     {
         parent::__construct();
-		
-		$this->client = new Client(['base_uri' => 'https://api.staging.lbcx.ph/']);
-		
-		date_default_timezone_set("Asia/Manila");
 
+		date_default_timezone_set("Asia/Manila");
+	
     }
 
     /**
@@ -50,30 +41,9 @@ class ShowOrderHistory extends Command
      */
     public function handle()
     {
-		// set headers
-		// $headers = ['X-Time-Zone' => 'Asia/Manila'];
-		
-		// Initiate non-blocking request
-		$promises = [
-			$this->client->getAsync('v1/orders/0077-6495-AYUX'/*, $headers*/),
-			$this->client->getAsync('v1/orders/0077-6491-ASLK'),
-			$this->client->getAsync('v1/orders/0077-6490-VNCM'),
-			$this->client->getAsync('v1/orders/0077-6478-DMAR'),
-			$this->client->getAsync('v1/orders/0077-1456-TESV'),
-			$this->client->getAsync('v1/orders/0077-0836-PEFL'),
-			$this->client->getAsync('v1/orders/0077-0526-EBDW'),
-			$this->client->getAsync('v1/orders/0077-0522-QAYC'),
-			$this->client->getAsync('v1/orders/0077-0516-VBTW'),
-			$this->client->getAsync('v1/orders/0077-0424-NSHE')
-
-		];
-		
-		// Wait on all of the requests to complete. Throws a ConnectException
-		// if any of the requests fail
-		$results = Promise\unwrap($promises);
-
-		// Wait for the requests to complete, even if some of them fail
-		$results = Promise\settle($promises)->wait();
+		// Parse Order API
+		$Orders = new \App\Http\Controllers\Orders;
+		$results = $Orders->get();
 		
 		// Process results
 		if($results) {
