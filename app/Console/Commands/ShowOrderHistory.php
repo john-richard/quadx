@@ -42,8 +42,8 @@ class ShowOrderHistory extends Command
     public function handle()
     {
 		// Parse Order API
-		$Orders = new \App\Http\Controllers\Orders;
-		$results = $Orders->get();
+		$OrdersApi = new \App\Http\Controllers\OrdersApi;
+		$results = $OrdersApi->get();
 		
 		// Process results
 		if($results) {

@@ -8,7 +8,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
 
-class Orders extends Controller
+class OrdersApi extends Controller
 {
 
 	/**
@@ -39,8 +39,6 @@ class Orders extends Controller
      */
     public function get()
     {
-		
-		
         $urlStr = $this->constants['version'] . "/" . $this->constants['category'] . "/";
 		
 		// Initiate non-blocking request
