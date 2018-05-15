@@ -3,14 +3,14 @@ composer update
 php artisan command:ShowOrderHistory
 
 
-<strong>Command</strong>
-app\Console\Commands\ShowOrderHistory.php
+<h2>Command</h2>
+app\Console\Commands\ShowOrderHistory.php<br>
 <em>Process to display Order History.</em>
 
-<strong>API</strong>
-app\Http\Controllers\OrdersApi.php
+<h2>API</h2>
+app\Http\Controllers\OrdersApi.php<br>
 <em>API parse for order data.</em>
 
-<strong>Config</strong>
-config\constants.php
+<h2>Config</h2>
+config\constants.php<br>
 <em>Configuration file contains webservice parameters.</em>
